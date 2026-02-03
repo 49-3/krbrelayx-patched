@@ -38,7 +38,7 @@ source venv/bin/activate
 
 # Installer les dépendances
 pip install --upgrade pip
-pip install impacket dnspython ldap3 pyasn1
+pip install impacket dnspython ldap3 pyasn1 pycryptodome
 
 # Vérifier l'installation
 python krbrelayx.py -h
@@ -404,7 +404,7 @@ echo "nameserver $DC_IP" | sudo tee -a /etc/resolv.conf
 cd /Tools/krbrelayx
 python3 -m venv venv
 source venv/bin/activate
-pip install -q impacket dnspython ldap3 pyasn1
+pip install -q impacket dnspython ldap3 pyasn1 pycryptodome
 
 # Ajouter DNS record
 python3 dnstool.py -u "CORP\\$DOMAIN_USER" -p "$DOMAIN_PASS" \
@@ -481,6 +481,18 @@ sudo systemctl stop systemd-resolved traefik apache2 nginx
 ```bash
 nxc smb $DC_IP -M spooler
 ```
+
+### Erreur : `ModuleNotFoundError: No module named 'Crypto'` ou `unsupported hash type MD4`
+
+**Cause** : Le module pycryptodome n'est pas installé dans le venv.
+
+**Solution** :
+```bash
+source venv/bin/activate
+pip install pycryptodome
+```
+
+> 📝 **Note** : Ce module est nécessaire pour les opérations cryptographiques (MD4 hash) utilisées dans l'authentification NTLM.
 
 ---
 

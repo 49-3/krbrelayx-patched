@@ -44,7 +44,7 @@ cd "23. Attacking Active Directory"
 cd krbrelayx
 python3 -m venv venv
 source venv/bin/activate
-pip install impacket dnspython ldap3 pyasn1
+pip install impacket dnspython ldap3 pyasn1 pycryptodome
 ```
 
 ### Attaque Unconstrained Delegation
